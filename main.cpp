@@ -1,10 +1,5 @@
 #include "ft_server.hpp"
 
-//void	error(const std::string &error){
-//	std::cout << error << std::endl;
-//	exit(EXIT_FAILURE);
-//}
-
 int		main(int argc, char **argv){
 	if (argc != 3) { error("Args Error. Please type: <port> <password>"); }
 

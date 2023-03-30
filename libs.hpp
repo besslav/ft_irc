@@ -18,9 +18,6 @@
 //#include <vector>
 //#include <map>
 
-#include "ft_server.hpp"
-//#include "user.hpp"
-
 
 #define BUFFSIZE	4096
 #define FDSSIZE		10

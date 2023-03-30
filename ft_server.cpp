@@ -59,16 +59,3 @@ void ft_server::continueConnection(size_t &i)
 	}
 
 }
-
-//void	error(std::string error);
-
-
-//
-//void	ft_server::error(const std::string &error){
-//	std::cout << error << std::endl;
-//	exit(EXIT_FAILURE);
-//}
-//void	error(const std::string &error){
-//	std::cout << error << std::endl;
-//	exit(EXIT_FAILURE);
-//}

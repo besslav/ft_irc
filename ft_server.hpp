@@ -38,8 +38,6 @@ public:
 	void 				setNewConnection();
 	void 				continueConnection(size_t &i);
 
-	//static void			error(const std::string &error);
 };
 
-//void			error(const std::string &error);
 #endif //FT_IRC_FT_SERVER_H
