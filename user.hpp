@@ -40,7 +40,7 @@ public:
 
 //	user
 
-	//void 					parsCommand(std::string command, const struct pollfd &fds);
+	void 					parsCommand(const std::string& command, struct pollfd *fds);
 	void 					printAns();
 };
 

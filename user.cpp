@@ -25,25 +25,22 @@ std::string 		user::getUsername() { return (_username);  }
 
 //user
 
+void	user::parsCommand(const std::string& command, struct pollfd *fds ) {
+	std::vector<std::string> Words;
+	std::istringstream input2;
+	input2.str(command);
+	if (command != "fsdfs" and fds[0].fd != 0){ }
+	for (std::string line; std::getline(input2, line, ' ');) {
+		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end());
+		line.erase(std::remove(line.begin(), line.end(), '\n'), line.end());
+		Words.push_back(line);
+	}
+	std::cout << '(' << Words.at(0) << ")" << std::endl;
 
-//std::string *parsWords(std::string s) {
-//	// Use find function to find 1st position of delimiter.
-//	int end = s.find(' ');
-//	while (end != -1) { // Loop until no delimiter is left in the string.
-//		s.erase(s.begin(), s.begin() + end + 1);
-//		end = s.find(' ');
-//	}
-//}
-//void	user::parsCommand(std::string command, const struct pollfd &fds ) {
-//	//std::string Words[3];
-//	all_words
-//
-//
-//
-//
-//}
+
+}
 
 void 	user::printAns() {
 	printf("(ans from %d)\n", _sockfd);
-	send(_sockfd, "(ans)\n", 7, 0);
+	//send(_sockfd, "(ans)\n", 7, 0);
 }

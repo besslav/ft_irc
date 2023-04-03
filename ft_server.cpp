@@ -100,8 +100,8 @@ void ft_server::continueConnection(size_t &i)
 	}
 	else
 	{
-		printf("%s", buf);
-		_users->at((int)i)->printAns();
+		//printf("%s", buf);
+		_users->at((int)i)->parsCommand(buf, _fds);
 		send(_fds[i].fd, "(fk off man)\n", 14, 0);
 	}
 
