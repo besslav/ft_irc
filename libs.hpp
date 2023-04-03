@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <poll.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -15,8 +16,8 @@
 #include <arpa/inet.h>
 //#include <netinet/in.h>
 #include <fcntl.h>
-//#include <vector>
-//#include <map>
+#include <vector>
+#include <map>
 
 
 #define BUFFSIZE	4096

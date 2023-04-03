@@ -1,12 +1,12 @@
 NAME = ircserv
 
 SRCS = main.cpp \
-		ft_server.cpp \
+		ft_server.cpp  user.cpp\
 		libs.cpp
 
 CLANG = c++
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
 RM = rm -rf
 

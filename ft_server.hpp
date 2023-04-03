@@ -6,15 +6,16 @@
 #define FT_IRC_FT_SERVER_H
 
 #include "libs.hpp"
+#include "user.hpp"
 
-
+class user;
 class ft_server {
 private:
 	int							_port;
 	std::string 				_pass;
 	int 						_listening;
 	struct pollfd 				_fds[FDSSIZE];
-	//user						_users[FDSSIZE];
+	std::map<int, user*>		_users[FDSSIZE];
 
 
 
@@ -35,8 +36,14 @@ public:
 	struct pollfd*		getFds();
 
 	//serv
+	void 				server_init();
+	void 				server_loop();
 	void 				setNewConnection();
 	void 				continueConnection(size_t &i);
+
+
+
+
 
 };
 
