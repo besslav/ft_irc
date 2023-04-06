@@ -17,7 +17,6 @@ private:
 
 	int						_sockfd;//key in map
 
-	//void checkUserPassword(ft_server &server, std::string message, int i);
 
 public:
 	user();
@@ -25,23 +24,28 @@ public:
 	~user();
 
 //	setters
-	void					setAuthorization_status(int newStatus);
-	void 					setFd(int fd);
-	void 					setNickname(const std::string& nick);
-	void 					setUsername(const std::string& name);
+	void						setAuthorization_status(int newStatus);
+	void 						setFd(int fd);
+	void 						setNickname(const std::string& nick);
+	void 						setUsername(const std::string& name);
 
 
 // getters
-	int 					getAuthorization_status();
-	int 					getFd();
-	std::string 			getNickname();
-	std::string 			getUsername();
+	int 						getAuthorization_status();
+	int 						getFd();
+	std::string 				getNickname();
+	std::string 				getUsername();
 
-
+//	pars autorization
+	void						checkPass(std::vector<std::string> *words, ft_server *server);
+	void						checkNick(std::vector<std::string> *words, ft_server *server);
+	void						checkUser(std::vector<std::string> *words, ft_server *server);
 //	user
 
-	void 					parsCommand(const std::string& command, struct pollfd *fds);
-	void 					printAns();
+	void 						parsCommand(const std::string& command, ft_server server);
+	std::vector<std::string>	parsCommandToVector(const std::string& command);
+
+	void 						doPrivmsg(ft_server *server, std::vector<std::string> *words);
 };
 
 

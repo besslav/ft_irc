@@ -5,12 +5,11 @@
 #ifndef FT_IRC_COMMAND_HPP
 #define FT_IRC_COMMAND_HPP
 
-
+#include "libs.hpp"
 
 class command {
 
 };
-
 
 
 #endif //FT_IRC_COMMAND_HPP

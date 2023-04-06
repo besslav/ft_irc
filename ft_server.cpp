@@ -22,10 +22,11 @@ void ft_server::setListening(int listening) {_listening = listening;}
 void ft_server::setPass(const std::string& pass) {_pass = pass;}
 
 //getters
-int 			ft_server::getPort() {return (_port);}
-int 			ft_server::getListening() {return (_listening);}
-std::string 	ft_server::getPassword() {return (_pass);}
-struct pollfd* 	ft_server::getFds() {return (_fds);}
+int 					ft_server::getPort() {return (_port);}
+int 					ft_server::getListening() {return (_listening);}
+std::string 			ft_server::getPassword() {return (_pass);}
+struct pollfd* 			ft_server::getFds() {return (_fds);}
+std::map<int, user*>&	ft_server::getUsers() {return (_users);}
 
 void ft_server::server_init()
 {
@@ -75,11 +76,11 @@ void ft_server::setNewConnection()
 	for (int i = 1; i < FDSSIZE; i++) {
 		if (_fds[i].fd == -1) {
 			_fds[i].fd = accept(_fds[0].fd, nullptr, nullptr);
-			std::cout << "\033[1;33m" << "NEW CONNNECT KEY=" << i << "\033[0m" << std::endl;
+			std::cout << "\033[1;33m" << "NEW CONNNECT KEY=" << i << "fd=" << _fds[i].fd << "\033[0m" << std::endl;
 			_fds[i].events = POLLIN;
 			_fds[i].revents = 0;
 
-			_users->insert(std::pair<int, user*>(i, new user(i)));
+			_users.insert(std::pair<int, user*>(i, new user(i)));
 
 			break;
 		}
@@ -100,9 +101,7 @@ void ft_server::continueConnection(size_t &i)
 	}
 	else
 	{
-		//printf("%s", buf);
-		_users->at((int)i)->parsCommand(buf, _fds);
-		send(_fds[i].fd, "(fk off man)\n", 14, 0);
+		_users.at((int)i)->parsCommand(buf, *this);
 	}
 
 }
