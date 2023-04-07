@@ -6,23 +6,23 @@
 #define FT_IRC_FT_SERVER_H
 
 #include "libs.hpp"
-#include "user.hpp"
+#include "User.hpp"
 
-class user;
-class ft_server {
+class User;
+class Ft_server {
 private:
 	int							_port;
 	std::string 				_pass;
 	int 						_listening;
 	struct pollfd 				_fds[FDSSIZE];
-	std::map<int, user*>		_users;
+	std::map<int, User*>		_users;
 
 
 
 public:
-	ft_server();
-	~ft_server();
-	ft_server(int port, const std::string& pass);
+	Ft_server();
+	~Ft_server();
+	Ft_server(int port, const std::string& pass);
 
 //	setters
 	void 					setPort(int port);
@@ -34,13 +34,13 @@ public:
 	int						getListening();
 	std::string				getPassword();
 	struct pollfd*			getFds();
-	std::map<int, user*>&	getUsers();
+	std::map<int, User*>&	getUsers();
 
 	//serv
 	void 					server_init();
 	void 					server_loop();
 	void 					setNewConnection();
-	void 					continueConnection(size_t &i);
+	void 					continueConnection(int &i);
 
 
 

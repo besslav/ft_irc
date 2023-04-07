@@ -6,10 +6,11 @@
 #define FT_IRC_USER_H
 
 #include "libs.hpp"
-#include "ft_server.hpp"
+#include "Ft_server.hpp"
+#include "Command.hpp"
 
-class ft_server;
-class user {
+class Ft_server;
+class User {
 private:
 	std::string				_nickname;
 	std::string				_username;
@@ -19,15 +20,16 @@ private:
 
 
 public:
-	user();
-	user(int fd);
-	~user();
+	User();
+	User(int fd);
+	~User();
 
 //	setters
-	void						setAuthorization_status(int newStatus);
+	void						setAuthorizationStatus(int newStatus);
 	void 						setFd(int fd);
 	void 						setNickname(const std::string& nick);
 	void 						setUsername(const std::string& name);
+	void 						upAuthorizationStatus();
 
 
 // getters
@@ -36,16 +38,11 @@ public:
 	std::string 				getNickname();
 	std::string 				getUsername();
 
-//	pars autorization
-	void						checkPass(std::vector<std::string> *words, ft_server *server);
-	void						checkNick(std::vector<std::string> *words, ft_server *server);
-	void						checkUser(std::vector<std::string> *words, ft_server *server);
 //	user
 
-	void 						parsCommand(const std::string& command, ft_server server);
+	void 						parsCommand(const std::string& command, Ft_server &server);
 	std::vector<std::string>	parsCommandToVector(const std::string& command);
 
-	void 						doPrivmsg(ft_server *server, std::vector<std::string> *words);
 };
 
 

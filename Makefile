@@ -2,7 +2,7 @@ NAME = ircserv
 
 SRCS = main.cpp \
 		ft_server.cpp  user.cpp\
-		libs.cpp
+		libs.cpp command.cpp
 
 CLANG = c++
 
