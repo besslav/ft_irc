@@ -1,8 +1,8 @@
 NAME = ircserv
 
 SRCS = main.cpp \
-		ft_server.cpp  user.cpp\
-		libs.cpp command.cpp
+		Ft_server.cpp  User.cpp\
+		libs.cpp Command.cpp Channel.cpp
 
 CLANG = c++
 

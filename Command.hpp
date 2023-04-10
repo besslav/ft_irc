@@ -16,12 +16,12 @@ class Command {
 
 
 public:
-	void						checkPass(std::vector<std::string> *words, Ft_server *server, User &user);
-	void						checkNick(std::vector<std::string> *words, Ft_server *server, User &user);
-	void						checkUser(std::vector<std::string> *words, Ft_server *server, User &user);
+	void						checkPass(std::vector<std::string> &words, Ft_server &server, User &user);
+	void						checkNick(std::vector<std::string> &words, Ft_server &server, User &user);
+	void						checkUser(std::vector<std::string> &words, Ft_server &server, User &user);
 
-	void 						doPrivmsg(Ft_server *server, std::vector<std::string> *words, User &user);
-
+	void 						doPrivmsg(Ft_server &server, std::vector<std::string> &words, User &user);
+	void 						doJoin(Ft_server &server, User &user, std::vector<std::string> &words);
 };
 
 

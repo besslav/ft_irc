@@ -12,11 +12,11 @@
 class Ft_server;
 class User {
 private:
-	std::string				_nickname;
-	std::string				_username;
-	int 					_authorization_status;
-
-	int						_sockfd;//key in map
+	std::string						_nickname;
+	std::string						_username;
+	std::vector<std::string>		_usersChannels;
+	int 							_authorization_status;
+	int								_sockfd;//key in map
 
 
 public:
@@ -30,6 +30,7 @@ public:
 	void 						setNickname(const std::string& nick);
 	void 						setUsername(const std::string& name);
 	void 						upAuthorizationStatus();
+	void 						addChannels(const std::string&	newChannel);
 
 
 // getters
@@ -37,6 +38,7 @@ public:
 	int 						getFd();
 	std::string 				getNickname();
 	std::string 				getUsername();
+	std::vector<std::string>	getChannels();
 
 //	user
 
