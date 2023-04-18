@@ -34,13 +34,15 @@ public:
 	void 					addChannel(const std::string& channelName, int user);
 	void 					addUserToChannel(int user, const std::string& channel);
 
+
 //	getters
-	int								getPort();
-	int								getListening();
-	std::string						getPassword();
-	struct pollfd*					getFds();
-	std::map<int, User*>&			getUsers();
-	std::map<std::string, Channel*>	getChannels();
+	int									getPort();
+	int									getListening();
+	std::string							getPassword();
+	struct pollfd*						getFds();
+	std::map<int, User*>				getUsers();
+	std::map<std::string, Channel*>		getChannels();
+	int 								getUsersFdByName(std::string name);
 
 	//serv
 	void 					server_init();

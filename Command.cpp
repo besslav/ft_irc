@@ -39,49 +39,62 @@ void	Command::checkUser(std::vector<std::string> &words, Ft_server &server, User
 	send(server.getFds()[user.getFd()].fd, "bad args\n", 10, 0);
 }
 
-void 	Command::doPrivmsg(Ft_server &server, std::vector<std::string> &words, User &user) {
-	std::map<int, User*>::iterator it;
-	std::map<std::string, Channel*>	::iterator itCh;
+void	Command::sendMessage(Ft_server &server, std::vector <std::string> &words, int usersFd) {
 	std::vector<std::string>::iterator itWords;
-
-	for (it = server.getUsers().begin(); it != server.getUsers().end(); it++){
-		if (words.at(1) == it->second->getNickname()){
-			for (itWords = words.begin()+2; itWords != words.end(); itWords++) {
-				//printf("(%s) with len = (%lu)\n", (*itWords).c_str(), (*itWords).size());
-				send(server.getFds()[it->first].fd, (*itWords).c_str(), (size_t)(*itWords).size(), 0);
-				send(server.getFds()[it->first].fd, " ", 1, 0);
-			}
-			send(server.getFds()[it->first].fd, "\n", 1, 0);
-		}
+	for (itWords = words.begin()+2; itWords != words.end(); itWords++) {
+		send(server.getFds()[usersFd].fd, (*itWords).c_str(), (size_t)(*itWords).size(), 0);
+		send(server.getFds()[usersFd].fd, " ", 1, 0);
 	}
-	if (!server.getChannels().empty()){
-		for (itCh = server.getChannels().begin(); itCh != server.getChannels().end(); itCh++){
-			if (words.at(1) == itCh->first){
-				std::vector<int>::iterator itUsers;
-				for (itUsers = itCh->second->getUsersVector().begin(); itUsers != itCh->second->getUsersVector().end(); itUsers++) {
-					for (itWords = words.begin() + 2; itWords != words.end(); itWords++) {
-						send(server.getFds()[*itUsers].fd, (*itWords).c_str(), (size_t) (*itWords).size(), 0);
-						send(server.getFds()[*itUsers].fd, " ", 1, 0);
-					}
-					send(server.getFds()[*itUsers].fd, "\n", 1, 0);
-				}
-			}
-		}
-	}
+	send(server.getFds()[usersFd].fd, "\n", 1, 0);
 }
+
+void 	Command::doPrivmsg(Ft_server &server, std::vector<std::string> &words, User &user) {
+	std::string sendTo = words.at(1);
+	if (sendTo[0] == '#'){
+		std::map<std::string, Channel*>::iterator it;
+		std::map<std::string, Channel*> chanels = server.getChannels();
+		it = chanels.find(sendTo);
+		if (it != chanels.end()){
+			std::vector<int> users = it->second->getUsersVector();
+			std::vector<int>::iterator usersIt;
+			for (usersIt = users.begin(); usersIt != users.end(); usersIt++){
+				sendMessage(server, words, *usersIt);
+			}
+		}
+	} else{
+		std::map<int, User*>::iterator it;
+		std::map<int, User*> users = server.getUsers();
+		int userFd = server.getUsersFdByName(sendTo);
+		if (userFd == -1){
+			send(server.getFds()[user.getFd()].fd, "unknown user\n", 13, 0);
+			return;
+		}
+		it = users.find(userFd);
+		if (it != users.end()){
+			sendMessage(server, words, it->second->getFd());
+		}
+	}
+
+}
+
+
+
 // проработать ситуацию, когда южер джойнится в канал, в котором он уже состоит
 void 	Command::doJoin(Ft_server &server, User &user, std::vector<std::string> &words) {
-	std::map<std::string, Channel*>::iterator it;
-	if (!server.getChannels().empty()) {
-		for (it = server.getChannels().begin(); it != server.getChannels().end(); it++) {
-			if (it->first == words.at(1)) {
-				user.addChannels(words.at(1));
-				server.addUserToChannel(user.getFd(), it->first);
-				return;
-			}
-		}
+	std::string channelName = words.at(1);
+	if (channelName[0] != '#'){
+		send(server.getFds()[user.getFd()].fd,	"channel name should start by #\n", 31, 0);
+		return;
 	}
-	server.addChannel(words.at(1), user.getFd());
-	user.addChannels(words.at(1));
+	std::map<std::string, Channel*>::iterator it;
+	std::map<std::string, Channel*> chanels = server.getChannels();
+	it = chanels.find(channelName);
 
+	if (it != chanels.end()){
+		user.addChannels(channelName);
+		server.addUserToChannel(user.getFd(), channelName);
+	} else {
+		server.addChannel(channelName, user.getFd());
+		user.addChannels(channelName);
+	}
 }

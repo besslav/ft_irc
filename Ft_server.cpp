@@ -22,21 +22,27 @@ void Ft_server::setListening(int listening) {_listening = listening;}
 void Ft_server::setPass(const std::string& pass) {_pass = pass;}
 void Ft_server::addChannel(const std::string& channelName, int user) {
 	_channels.insert(std::pair<std::string, Channel*>(channelName, new Channel(user)));
-
 }
-
 void Ft_server::addUserToChannel(int user, const std::string& channel) {
 	_channels.at(channel)->addUser(user);
 }
 
 //getters
-int 							Ft_server::getPort() {return (_port);}
-int 							Ft_server::getListening() {return (_listening);}
-std::string 					Ft_server::getPassword() {return (_pass);}
-struct pollfd* 					Ft_server::getFds() {return (_fds);}
-std::map<int, User*>&			Ft_server::getUsers() {return (_users);}
-std::map<std::string, Channel*>	Ft_server::getChannels() { return (_channels);}
-
+int 								Ft_server::getPort() {return (_port);}
+int 								Ft_server::getListening() {return (_listening);}
+std::string 						Ft_server::getPassword() {return (_pass);}
+struct pollfd* 						Ft_server::getFds() {return (_fds);}
+std::map<int, User*>				Ft_server::getUsers() {return (_users);}
+std::map<std::string, Channel*>		Ft_server::getChannels() { return (_channels);}
+int 								Ft_server::getUsersFdByName(std::string name) {
+	std::map<int, User*>::iterator it;
+	for (it = _users.begin(); it != _users.end(); it++){
+		if (it->second->getNickname() == name){
+			return it->first;
+		}
+	}
+	return -1;
+}
 //serv
 void Ft_server::server_init()
 {

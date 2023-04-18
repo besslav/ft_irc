@@ -12,7 +12,7 @@ class User;
 class Channel {
 private:
 	std::vector<int> 			_usersVector;
-	//User 						_admin;
+	//int 						_admin;
 public:
 	Channel(int	firstUser);
 	std::vector<int>			getUsersVector();

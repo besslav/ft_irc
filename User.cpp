@@ -74,14 +74,6 @@ void	User::parsCommand(const std::string& command_line, Ft_server &server ) {
 			}
 			if (words.at(0) == "JOIN"){
 				commandexecuter.doJoin(server, *this, words);
-				std::cout << "----------joindone-------------" << std::endl;
-
-
-				std::cout << "----------testdone----------------------------------" << std::endl;
-
-
-
-				//debugChannels(&server);
 			}
 		}
 		else{

@@ -22,6 +22,8 @@ public:
 
 	void 						doPrivmsg(Ft_server &server, std::vector<std::string> &words, User &user);
 	void 						doJoin(Ft_server &server, User &user, std::vector<std::string> &words);
+
+	void 						sendMessage(Ft_server &server, std::vector<std::string> &words, int user);
 };
 
 
